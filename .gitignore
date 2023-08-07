@@ -1,0 +1,6 @@
+.venv/
+.idea/
+pycache
+.log
+
+/stand_blog_site/.env

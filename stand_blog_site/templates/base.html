@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
+
+    <title>Stand Blog</title>
+
+    <!-- Bootstrap  -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-stand-blog.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+
+</head>
+<body>
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+<!-- Header -->
+{% include 'inc/_header.html' %}
+
+{% block content %} {% endblock %}
+
+{% include 'inc/_footer.html' %}
+
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Additional Scripts -->
+<script src="{% static 'assets/js/custom.js' %}"></script>
+<script src="{% static 'assets/js/owl.js' %}"></script>
+<script src="{% static 'assets/js/slick.js' %}"></script>
+<script src="{% static 'assets/js/isotope.js' %}"></script>
+<script src="{% static 'assets/js/accordions.js' %}"></script>
+</body>
+</html>
