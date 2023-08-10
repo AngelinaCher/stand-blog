@@ -7,8 +7,8 @@
         <div class="content">
             {% for post in posts %}
             <ul>
-                <li><a href="post-details.html">
-                    <h5><a href="{{ post.get_absolute_url }}" style="color: black;"> {{ post.title }}</a></h5>
+                <li><a href="{{ post.get_absolute_url }}" style="color: black;">
+                    <h5>{{ post.title }}</h5>
                     <span>{{ post.created_at|date:"d.m.Y" }}</span>
                 </a></li>
             </ul>

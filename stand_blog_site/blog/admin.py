@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Category, Tag, Post
+from .models import Category, Tag, Post, Contact
 
 
-# для формирования slug
 class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
@@ -35,6 +34,11 @@ class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
     list_per_page = 7
+
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    pass
 
 
 admin.site.register(Category, CategoryAdmin)

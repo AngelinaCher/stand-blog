@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.db.models import F
 from .models import Post, Category, Tag
 
@@ -32,10 +32,19 @@ class News(ListView):
         return context
 
 
+class Contact(TemplateView):
+    template_name = 'blog/contact.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Контакты'
+        return context
+
+
 class PostByCategory(ListView):
     template_name = 'blog/category.html'
     context_object_name = 'categories'
-    paginate_by = 4
+    paginate_by = 6
     allow_empty = False
 
     def get_queryset(self):
@@ -79,7 +88,7 @@ class GetPost(DetailView):
 class Search(ListView):
     template_name = 'blog/search.html'
     context_object_name = 'posts'
-    paginate_by = 4
+    paginate_by = 6
 
     def get_queryset(self):
         return Post.objects.filter(title__icontains=self.request.GET.get('s'))

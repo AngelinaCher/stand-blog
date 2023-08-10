@@ -13,7 +13,7 @@ p {
 	line-height: 30px;
 }
 a {
-	text-decoration: none;
+	text-decoration: none!important;
 }
 ul {
 	padding: 0;
@@ -897,6 +897,7 @@ footer p a:hover {
 
 .contact-us .contact-form button {
 	display: inline-block;
+	cursor: pointer;
 	background-color: #f48840;
 	color: #fff;
 	font-size: 13px;
