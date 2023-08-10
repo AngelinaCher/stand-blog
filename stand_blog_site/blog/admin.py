@@ -15,6 +15,7 @@ class PostAdmin(admin.ModelAdmin):
     readonly_fields = ('views', 'created_at', 'get_photo')
     fields = ('title', 'slug', 'category', 'tags', 'content', 'photo', 'get_photo', 'views',
               'created_at', 'author')
+    list_per_page = 7
 
     def get_photo(self, obj):
         if obj.photo:
@@ -27,11 +28,13 @@ class PostAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
+    list_per_page = 7
 
 
 class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
+    list_per_page = 7
 
 
 admin.site.register(Category, CategoryAdmin)
