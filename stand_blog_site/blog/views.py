@@ -16,6 +16,19 @@ class Home(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'Stand Blog '
+        return context
+
+
+class News(ListView):
+    model = Post
+    template_name = 'blog/news.html'
+    context_object_name = 'posts'
+    paginate_by = 6
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Новости'
         return context
 
 
@@ -51,7 +64,7 @@ class PostByTag(ListView):
 
 class GetPost(DetailView):
     model = Post
-    template_name = 'blog/single.html'
+    template_name = 'blog/single_post.html'
     context_object_name = 'post'
 
     def get_context_data(self, *, object_list=None, **kwargs):

@@ -13,7 +13,7 @@ p {
 	line-height: 30px;
 }
 a {
-	text-decoration: none!important;
+	text-decoration: none;
 }
 ul {
 	padding: 0;
@@ -409,13 +409,14 @@ header .navbar {
 	border-bottom: 1px solid #eee;
 }
 
-.blog-posts .down-content span {
+.blog-posts .down-content span a{
 	font-size: 18px;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 	font-weight: 900;
 	color: #f48840;
 }
+
 
 .blog-posts .down-content h4 {
 	font-size: 24px;
