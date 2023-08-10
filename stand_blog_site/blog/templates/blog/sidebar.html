@@ -1,0 +1,29 @@
+{% load menu_tags %}
+{% load menu_categories %}
+{% load popular_posts %}
+
+
+<div class="col-lg-4">
+    <div class="sidebar">
+        <div class="row">
+            <!--Поиск-->
+            <div class="col-lg-12">
+                <div class="sidebar-item search">
+                    <form id="search_form" name="gs" method="GET" action="{% url 'search' %}">
+                        <input type="text" name="s" class="searchText" placeholder="Найти..."
+                               autocomplete="on">
+                    </form>
+                </div>
+            </div>
+
+            {% get_popular_post 3 %}
+
+            <!-- Категории -->
+            {% get_categories %}
+
+            <!-- Облако тегов -->
+            {% get_tags %}
+
+        </div>
+    </div>
+</div>

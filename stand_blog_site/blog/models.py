@@ -3,6 +3,9 @@ from django.urls import reverse
 
 
 class Category(models.Model):
+    """
+    Модель категории
+    """
     title = models.CharField(max_length=300, verbose_name='Категория')
     slug = models.SlugField(max_length=300, verbose_name='URL', unique=True)
 
@@ -19,6 +22,9 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
+    """
+    Модель тега
+    """
     title = models.CharField(max_length=70, verbose_name='Тег')
     slug = models.SlugField(max_length=70, verbose_name='URL', unique=True)
 
@@ -35,6 +41,9 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
+    """
+    Модель поста
+    """
     title = models.CharField(max_length=70, verbose_name='Заголовок')
     slug = models.SlugField(max_length=70, verbose_name='URL', unique=True)
     author = models.CharField(max_length=120, verbose_name='Автор')
@@ -56,3 +65,20 @@ class Post(models.Model):
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
         ordering = ['-created_at']
+
+
+class Contact(models.Model):
+    """
+     Модель обратной связи
+    """
+    name = models.CharField(max_length=200, verbose_name='Пользователь')
+    email = models.EmailField(max_length=200, verbose_name='Email')
+    subject = models.CharField(max_length=100, verbose_name='Тема письма')
+    message = models.TextField(max_length=1000, verbose_name='Сообщение')
+
+    class Meta:
+        verbose_name = 'Обратная связь'
+        verbose_name_plural = 'Обратная связь'
+
+    def __str__(self):
+        return self.email

@@ -1,29 +1,33 @@
-<!-- Наследование от базового шаблона -->
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} {{ title }} {% endblock %}
+{% block title %} {{ post.title }} {% endblock %}
 
 {% block content %}
 <!-- Page Content -->
-<section class="call-to-action">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 mb-5">
+<div class="heading-page header-text">
+    <section class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-content">
+                        <h4>Пост</h4>
+                        <h2>Лучшие новости каждый день!</h2>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 
-<!-- Posts  -->
-<section class="blog-posts">
+
+<section class="blog-posts grid-system">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <div class="all-blog-posts">
                     <div class="row">
                         <!-- Начало поста -->
-                        {% for post in posts %}
                         <div class="col-lg-12">
                             <div class="blog-post">
                                 <div class="blog-thumb">
@@ -31,26 +35,24 @@
                                     <a href="{{ post.get_absolute_url }}">
                                         <img src="{{ post.photo.url }}"
                                              alt="{{ post.title }}"
-                                             style="
-                                             object-fit:cover;
-                                             height:400px;"
                                         ></a>
                                     {% endif %}
                                 </div>
                                 <div class="down-content">
-                                    <span><a
-                                            href="{{ post.category.get_absolute_url }}"
-                                            style="color: #f48840;"> {{ post.category }}
+                                     <span><a
+                                             href="{{ post.category.get_absolute_url }}"
+                                             style="color: #f48840;"> {{ post.category }}
                                     </a></span>
                                     <a href="{{ post.get_absolute_url }}"><h4>{{ post.title }}</h4></a>
                                     <ul class="post-info">
                                         <li><a href="#">{{ post.author }}</a></li>
                                         <li><a href="#">{{ post.created_at|date:"d.m.Y" }}</a></li>
+                                        <li><a href="#">{{ post.views }}</a> <i class="fa fa-eye"></i> </li>
                                     </ul>
-                                    <p>{{ post.content|truncatewords:70 }}</p>
+                                    <p>{{ post.content}}</p>
                                     <div class="post-options">
                                         <div class="row">
-                                            <div class="col-10">
+                                            <div class="col-6">
                                                 {% if post.tags.exists %}
                                                 <ul class="post-tags">
                                                     <li><i class="fa fa-tags"></i></li>
@@ -65,14 +67,7 @@
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}
 
-                        <!-- Кнопка "Посмотреть все посты" -->
-                        <div class="col-lg-12">
-                            <div class="main-button">
-                                <a href="{% url 'news' %}">Посмотреть все посты</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -80,5 +75,6 @@
         </div>
     </div>
 </section>
+
 
 {% endblock %}
