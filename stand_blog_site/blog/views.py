@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import ListView, DetailView, TemplateView, CreateView
+from django.core.mail import send_mail, BadHeaderError
+from django.urls import reverse_lazy
+from django.http import HttpResponse
 from django.db.models import F
-from .models import Post, Category, Tag
 
-
-def index(request):
-    return render(request, template_name="blog/index.html")
+from .models import Post, Category, Tag, Contact
+from .forms import ContactForm
 
 
 class Home(ListView):
@@ -29,15 +30,6 @@ class News(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Новости'
-        return context
-
-
-class Contact(TemplateView):
-    template_name = 'blog/contact.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Контакты'
         return context
 
 
@@ -97,3 +89,31 @@ class Search(ListView):
         context = super().get_context_data(**kwargs)
         context['s'] = f"s={self.request.GET.get('s')}&"
         return context
+
+
+class ContactCreate(SuccessMessageMixin, CreateView):
+    template_name = 'blog/contact.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('home')
+    extra_context = {'title': 'Контакты'}
+
+    def form_valid(self, form):
+        subject = form.cleaned_data.get('subject')
+        sender = 'AngelinaVeza@yandex.ru'
+        message = form.cleaned_data.get('message')
+        recipients = [form.cleaned_data.get('email')]
+        name = form.cleaned_data.get('name')
+        if form.is_valid():
+            try:
+                response_letter = f'{name}, большое спасибо за обратную связь. Мы учтём ваши пожелания!'
+                send_mail(subject=subject, message=response_letter, from_email=sender, recipient_list=recipients)
+                contact = Contact(
+                    name=form.cleaned_data['name'],
+                    email=form.cleaned_data['email'],
+                    subject=form.cleaned_data['subject'],
+                    message=form.cleaned_data['message']
+                )
+            except BadHeaderError:
+                return HttpResponse('Invalid header found')
+        return super().form_valid(form)
+

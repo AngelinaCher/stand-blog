@@ -36,7 +36,8 @@
                                     <h2>Пришлите нам сообщение</h2>
                                 </div>
                                 <div class="content">
-                                    <form id="contact" action="" method="post">
+                                    <form id="contact" method="post">
+                                        {% csrf_token %}
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12">
                                                 <fieldset>
