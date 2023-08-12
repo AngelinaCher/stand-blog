@@ -42,4 +42,4 @@
 * Django 4.2.4
 * PostgreSQL
 * Bootstrap
-* Javascript
+* JavaScript
