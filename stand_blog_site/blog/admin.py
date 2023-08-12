@@ -3,17 +3,17 @@ from django.utils.safestring import mark_safe
 from .models import Category, Tag, Post, Contact
 
 
+@admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
+    """ Регистрация модели Поста """
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
-    list_display = ['id', 'title', 'slug', 'category', 'created_at',
-                    'get_photo', 'views']
+    list_display = ['id', 'title', 'slug', 'category', 'created_at', 'get_photo', 'views']
     list_display_links = ['id', 'title']
     search_fields = ('title',)
     list_filter = ('category', 'tags')
     readonly_fields = ('views', 'created_at', 'get_photo')
-    fields = ('title', 'slug', 'category', 'tags', 'content', 'photo', 'get_photo', 'views',
-              'created_at', 'author')
+    fields = ('title', 'slug', 'category', 'tags', 'content', 'photo', 'get_photo', 'views', 'created_at', 'author')
     list_per_page = 7
 
     def get_photo(self, obj):
@@ -24,13 +24,17 @@ class PostAdmin(admin.ModelAdmin):
     get_photo.short_descriptions = 'Фото'
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    """ Регистрация модели Категории """
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
     list_per_page = 7
 
 
+@admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
+    """ Регистрация модели Тега """
     prepopulated_fields = {"slug": ("title",)}
     save_on_top = True
     list_per_page = 7
@@ -38,9 +42,5 @@ class TagAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
+    """ Регистрация модели Обратной связи """
     pass
-
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Tag, TagAdmin)
-admin.site.register(Post, PostAdmin)

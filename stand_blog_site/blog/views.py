@@ -1,5 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import ListView, DetailView, TemplateView, CreateView
+from django.views.generic import ListView, DetailView, CreateView
 from django.core.mail import send_mail, BadHeaderError
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -9,6 +9,7 @@ from .models import Post, Category, Tag, Contact
 from .forms import ContactForm
 
 
+# Главная страница
 class Home(ListView):
     model = Post
     template_name = 'blog/index.html'
@@ -21,6 +22,7 @@ class Home(ListView):
         return context
 
 
+# Страница новостей
 class News(ListView):
     model = Post
     template_name = 'blog/news.html'
@@ -33,6 +35,7 @@ class News(ListView):
         return context
 
 
+# Страница новостей по категориям
 class PostByCategory(ListView):
     template_name = 'blog/category.html'
     context_object_name = 'categories'
@@ -48,6 +51,7 @@ class PostByCategory(ListView):
         return context
 
 
+# Страница новостей по тегам
 class PostByTag(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'posts'
@@ -63,6 +67,7 @@ class PostByTag(ListView):
         return context
 
 
+# Отображение отдельного поста
 class GetPost(DetailView):
     model = Post
     template_name = 'blog/single_post.html'
@@ -77,6 +82,7 @@ class GetPost(DetailView):
         return context
 
 
+# Страница новостей по поиску
 class Search(ListView):
     template_name = 'blog/search.html'
     context_object_name = 'posts'
@@ -91,12 +97,14 @@ class Search(ListView):
         return context
 
 
+# Страница обратной связи
 class ContactCreate(SuccessMessageMixin, CreateView):
     template_name = 'blog/contact.html'
     form_class = ContactForm
     success_url = reverse_lazy('home')
     extra_context = {'title': 'Контакты'}
 
+    # валидация формы и отправка email
     def form_valid(self, form):
         subject = form.cleaned_data.get('subject')
         sender = 'AngelinaVeza@yandex.ru'
